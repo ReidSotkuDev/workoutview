@@ -1,0 +1,63 @@
+//
+//  PokemonCard.swift
+//  allworkoutsscrollview
+//
+//  Created by PMStudent on 10/19/21.
+//
+import Kingfisher
+import Foundation
+import SwiftUI
+struct WorkoutCard: View {
+    let workoutData: WorkoutData
+    let workoutViewModel: WorkoutViewModel
+    let backgroundColor: Color
+    
+    init(workoutData: WorkoutData, workoutViewModel: WorkoutViewModel){
+        self.workoutData = workoutData
+        self.workoutViewModel = workoutViewModel
+        self.backgroundColor = Color(workoutViewModel.detectBackgroundColor(forType: workoutData.type))
+    }
+    
+    
+    var body: some View {
+        
+        ZStack {
+            VStack(alignment:.leading){
+               
+                Text(workoutData.name.uppercased())
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+                    .padding(.leading)
+                
+                HStack{
+                    Text(workoutData.type.uppercased())
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 0)
+                        .overlay(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.25)))
+                        .frame(width: 100, height: 25)
+                  
+                    
+                    KFImage(URL(string: workoutData.imageUrl))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 68, height: 68)
+                        .padding([.bottom, .trailing], 5)
+                
+                
+                }
+               
+            }
+        }
+                .background(backgroundColor)
+                .cornerRadius(12)
+            .shadow(color: backgroundColor, radius: 8, x: 0, y: 0)
+        }
+        
+    }
+    
+
